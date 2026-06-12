@@ -1,0 +1,54 @@
+{
+    "Description": "Criando EC2 Via CloudFormation",
+    "Resources": {
+        "MinhaVPC" : {
+            "Type" : "AWS::EC2::VPC",
+            "Properties" : {
+                "CidrBlock" : "10.0.0.0/16",
+                "EnableDnsSupport" : "true",
+                "EnableDnsHostnames" : "true",    
+                "Tags":[{
+                    "Key": "MinhaVPC", 
+                    "Value": "MinhaRedeVPC"
+                }]
+                    
+            }
+        },
+
+        "MinhaSubnet":{
+            "Type": "AWS::EC2::Subnet",
+            "Properties":{
+                "VpcId": {"Ref": "MinhaVPC"},
+                "AvailabilityZone": "us-east-1b",
+                "CidrBlock": "10.0.15.0/24",
+                 "Tags":[{
+                    "Key": "Name", 
+                    "Value": "MinhaRedeVPC"
+                }]
+
+            }
+        },
+
+        "MinhaMquinaEC2":{
+            "Type": "AWS::EC2::Instance",
+            "Properties":{
+                "AvailabilityZone": "us-east-1b",
+                "ImageId":"ami-091138d0f0d41ff90",
+                "InstanceType":"t2.micro",
+                "SubnetId": {"Ref": "MinhaSubnet"}
+            }
+            
+        },
+        
+        "MeuUsuarioAdmin": {
+            "Type": "AWS::IAM::User",
+            "Properties": {
+            "UserName": "AdminUser",
+            "LoginProfile": {
+            "Password": "SenhaSegura@1234"
+            },
+            "ManagedPolicyArns": ["arn:aws:iam::aws:policy/AdministratorAccess"]
+            }
+        }   
+    }   
+}
