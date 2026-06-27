@@ -1,4 +1,4 @@
-# Infraestrutura-de-AWS-usadno-CloudFormation
+# Infraestrutura-de-AWS-usando-CloudFormation
 Este repositório tem como objetivo mostrar como criar o seguintes recursos na nuvem da AWS usando o CloudInformation:
 
 -VPC
